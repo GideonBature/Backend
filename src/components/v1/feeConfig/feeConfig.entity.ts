@@ -1,16 +1,12 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Index, BeforeInsert } from "typeorm"
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Unique, BeforeInsert } from "typeorm"
 import { uuid } from "../../../utils"
 import { Network } from "../../../types/enums"
 
-@Entity("Wallet")
-@Index("Wallet_address_idx", ["address"])
-@Index("Wallet_network_idx", ["network"])
-export class WalletEntity {
+@Entity("FeeConfig")
+@Unique("unique_network_config", ["chainName", "network", "chainId"])
+export class FeeConfigEntity {
   @PrimaryColumn("text")
   id: string
-
-  @Column("text", { nullable: false, unique: true })
-  address: string
 
   @Column({
     type: "enum",
@@ -28,21 +24,21 @@ export class WalletEntity {
   @Column("decimal", {
     precision: 65,
     scale: 30,
-    default: "0",
+    nullable: false,
   })
-  balance: string
+  amount: string
 
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
-    precision: 3,
+    default: () => "CURRENT_TIMESTAMP",
   })
   createdAt: Date
 
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
-    precision: 3,
+    default: () => "CURRENT_TIMESTAMP",
   })
   updatedAt: Date
 
@@ -54,4 +50,4 @@ export class WalletEntity {
   }
 }
 
-export default WalletEntity
+export default FeeConfigEntity

@@ -6,7 +6,7 @@ import UserAccessEntity from '../../components/v1/auth/authEntities/userAccess.e
 import PlatformEntity, {
     FreeDomainEntity,
 } from '../../components/v1/platform/platformEntities/platform.entity';
-import UserEntity from '../../components/v1/user/userEntities/user.entity';
+import UserEntity from '../../components/v1/user/user.entity';
 import platformConstants from '../platformConstants';
 import { AppError } from '../../utils/errorHandler';
 import logger from '../../utils/logger';
